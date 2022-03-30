@@ -17,6 +17,8 @@
     ```
 3. set your password in the `.env` file
 4. run `index.js`
-
+    ```bash
+    $ node index.js
+    ```
 
 
