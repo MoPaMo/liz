@@ -15,6 +15,11 @@ db.run("CREATE TABLE IF NOT EXISTS entries (date INTEGER, topic TEXT, code TEXT,
 // set up dotenv
 dotenv.config();
 
+// write message to console if the password is blank
+if (process.env.PASSWORD === '') {
+    console.log('WARNING: The password is blank. Unless you change it in a .env file, noone will be able to post or delete notes on your site.');
+}
+
 // set up middleware
 app.use(express.json());
 //use /cdn for static files
@@ -48,7 +53,7 @@ app.post('/api/entries', (req, res) => {
         });
     }
     // check if password is correct
-    if (pwd !== process.env.ADMIN_PASSWORD) {
+    if (pwd !== process.env.PASSWORD) {
         return res.status(401).json({
             error: 'unauthorized'
         });
