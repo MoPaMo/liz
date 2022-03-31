@@ -36,41 +36,45 @@ app.get("/", (req, res) => {
 });
 // handle get requests to api/entries
 app.get("/api/entries", (req, res) => {
-  // get all entries from table "entries"
-  db.all("SELECT * FROM entries", (err, rows) => {
+  //set limit to 15 if not set by query
+  const limit = req.query.limit ? req.query.limit : 15;
+  // get limited entries from table "entries"
+  db.all(
+    `SELECT * FROM entries ORDER BY date DESC LIMIT?`,
+    [limit],
+    (err, rows) => {
+      db.all("SELECT * FROM entries", (err, rows) => {
+        if (err) {
+          res.status(500).send({ error: "database failure" });
+          // log error to console
+          console.error(err);
+        } else {
+          res.json({
+            message: "success",
+            entries: rows,
+          });
+        }
+      });
+    }
+  );
+});
+// handle get requests for specific items
+app.get("/api/entries/:id", (req, res) => {
+  // get specific entry from table "entries"
+  db.get(`SELECT * FROM entries WHERE id = ?`, [req.params.id], (err, row) => {
     if (err) {
       res.status(500).send({ error: "database failure" });
       // log error to console
       console.error(err);
-    } else {
+    } else if (row) {
       res.json({
         message: "success",
-        entries: rows,
+        entries: row,
       });
+    } else {
+      res.status(404).send({ error: "no such entry" });
     }
   });
-});
-// handle get requests for specific items
-app.get("/api/entries/:id", (req, res) => {
-    // get specific entry from table "entries"
-    db.get(
-        `SELECT * FROM entries WHERE id = ?`,
-        [req.params.id],
-        (err, row) => {
-            if (err) {
-                res.status(500).send({ error: "database failure" });
-                // log error to console
-                console.error(err);
-            } else if (row) {
-                res.json({
-                    message: "success",
-                    entries: row,
-                });
-            } else {
-                res.status(404).send({ error: "no such entry" });
-            }
-        }
-    );
 });
 
 // handle post requests to api/entries
@@ -95,8 +99,8 @@ app.post("/api/entries", (req, res) => {
   // insert data into table "entries"
   db.run(sql, [date, topic, code, header, notice], function (err) {
     if (err) {
-        //log error to console
-        console.error(err);
+      //log error to console
+      console.error(err);
       res.status(500).json({
         error: "database failure",
       });
