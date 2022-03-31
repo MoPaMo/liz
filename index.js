@@ -50,6 +50,29 @@ app.get("/api/entries", (req, res) => {
     }
   });
 });
+// handle get requests for specific items
+app.get("/api/entries/:id", (req, res) => {
+    // get specific entry from table "entries"
+    db.get(
+        `SELECT * FROM entries WHERE id = ?`,
+        [req.params.id],
+        (err, row) => {
+            if (err) {
+                res.status(500).send({ error: "database failure" });
+                // log error to console
+                console.error(err);
+            } else if (row) {
+                res.json({
+                    message: "success",
+                    entries: row,
+                });
+            } else {
+                res.status(404).send({ error: "no such entry" });
+            }
+        }
+    );
+});
+
 // handle post requests to api/entries
 app.post("/api/entries", (req, res) => {
   // get data from request body
