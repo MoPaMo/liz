@@ -32,7 +32,8 @@ app.use(express.json());
 app.use(express.static("cdn"));
 // set up routes
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  // send index.html
+    res.sendFile(__dirname + "/index.html");
 });
 // handle get requests to api/entries
 app.get("/api/entries", (req, res) => {
