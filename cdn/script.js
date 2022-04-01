@@ -97,7 +97,7 @@ const New = {
         .catch((error) => {
           console.log(error);
         }); // end of axios.post
-    },
+    }
   },
 },
 };
