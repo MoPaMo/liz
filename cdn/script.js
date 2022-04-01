@@ -72,34 +72,39 @@ const New = {
   methods: {
     onSubmit() {
       const params = {
-        topic:this.topic,
-        code:this.code,
-        header:this.header,
-        notice:this.notice,
-        pwd:this.pwd,
+        topic: this.topic,
+        code: this.code,
+        header: this.header,
+        notice: this.notice,
+        pwd: this.pwd,
       };
       //proceed only if all data is present
-      if (params.topic && params.code && params.header && params.notice && params.pwd) {
-
-      //check if connected to network
-      if (!navigator.onLine) {
-        return alert("Please connect to the internet");
-      }
-      this.loading = true;
-      // ajax  post call to /api/entries
-      axios
-        .post("/api/entries", params)
-        .then((response) => {
+      if (
+        params.topic &&
+        params.code &&
+        params.header &&
+        params.notice &&
+        params.pwd
+      ) {
+        //check if connected to network
+        if (!navigator.onLine) {
+          return alert("Please connect to the internet");
+        }
+        this.loading = true;
+        // ajax  post call to /api/entries
+        axios
+          .post("/api/entries", params)
+          .then((response) => {
             this.loading = true;
-          // redirect to new post
-          this.$router.push({ path: `/entries/${response.data.id}` });
-        })
-        .catch((error) => {
-          console.log(error);
-        }); // end of axios.post
-    }
+            // redirect to new post
+            this.$router.push({ path: `/entries/${response.data.id}` });
+          })
+          .catch((error) => {
+            console.log(error);
+          }); // end of axios.post
+      }
+    },
   },
-},
 };
 // the "entry" component
 const Entry = {
@@ -109,18 +114,28 @@ const Entry = {
     <p>{{entry.notice}}</p>
     <p>{{entry.code}}</p>
 </div>`,
+  data() {
+    return {
+      entry: {
+        topic: "",
+        header: "",
+        notice: "",
+        code: "",
+      },
+    };
+  },
   props: ["id"],
   // load data from server when component is loaded
-    created() {
-        axios
-            .get(`/api/entries/${route.params.id}`)
-            .then((response) => {
-                this.entry = response.data.entries[0];
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+  created() {
+    axios
+      .get(`/api/entries/${this.id}`)
+      .then((response) => {
+        this.entry = response.data.entries[0];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 
 // 2. Define some routes
@@ -130,7 +145,7 @@ const routes = [
   { path: "/", component: Home },
   { path: "/about", component: About },
   { path: "/new", component: New },
-  { path: "/entries/:id", component: Entry }
+  { path: "/entries/:id", component: Entry, props:true},
 ];
 
 // 3. Create the router instance and pass the `routes` option
