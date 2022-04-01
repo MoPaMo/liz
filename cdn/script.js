@@ -108,12 +108,6 @@ const New = {
 };
 // the "entry" component
 const Entry = {
-  template: `<div>
-    <h1>{{entry.topic}}</h1>
-    <p>{{entry.header}}</p>
-    <p>{{entry.notice}}</p>
-    <p>{{entry.code}}</p>
-</div>`,
   data() {
     return {
       entry: {
@@ -124,6 +118,12 @@ const Entry = {
       },
     };
   },
+  template: `<div>
+    <h1>{{entry.topic}}</h1>
+    <p>{{entry.header}}</p>
+    <p>{{entry.notice}}</p>
+    <p>{{entry.code}}</p>
+</div>`,
   props: ["id"],
   // load data from server when component is loaded
   created() {
