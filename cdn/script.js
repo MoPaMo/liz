@@ -71,13 +71,13 @@ const New = {
   },
   methods: {
     onSubmit() {
-      const params = [
-        this.topic,
-        this.code,
-        this.header,
-        this.notice,
-        this.pwd,
-      ];
+      const params = {
+        topic:this.topic,
+        code:this.code,
+        header:this.header,
+        notice:this.notice,
+        pwd:this.pwd,
+      };
       //proceed only if all data is present
       if (params.includes("")) {
         return alert("Please fill all fields");
