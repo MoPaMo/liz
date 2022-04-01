@@ -12,10 +12,19 @@ const port = process.env.PORT || 3000;
 const db = new sqlite3.Database(
   process.env.TEST_DATABASE || "./database.sqlite"
 );
-// create new table "entries" with values date int, topic text, code text, header text, notice text if not existing
+// create new table "entries" with values date int, topic text, code text, header text, notice text and autoincrement id if not existing
 db.run(
-  "CREATE TABLE IF NOT EXISTS entries (date INTEGER, topic TEXT, code TEXT, header TEXT, notice TEXT)"
+  `CREATE TABLE IF NOT EXISTS entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date INTEGER NOT NULL,
+    topic TEXT NOT NULL,
+    code TEXT NOT NULL,
+    header TEXT NOT NULL,
+    notice TEXT NOT NULL,
+    pwd TEXT NOT NULL
+  );`
 );
+
 // set up dotenv
 dotenv.config();
 
