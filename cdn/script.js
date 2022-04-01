@@ -79,9 +79,8 @@ const New = {
         pwd:this.pwd,
       };
       //proceed only if all data is present
-      if (params.includes("")) {
-        return alert("Please fill all fields");
-      }
+      if (params.topic && params.code && params.header && params.notice && params.pwd) {
+
       //check if connected to network
       if (!navigator.onLine) {
         return alert("Please connect to the internet");
@@ -100,6 +99,7 @@ const New = {
         }); // end of axios.post
     },
   },
+},
 };
 // the "entry" component
 const Entry = {
