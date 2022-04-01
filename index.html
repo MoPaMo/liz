@@ -12,7 +12,23 @@
     <script src="https://unpkg.com/vue-router@4"></script>
 
     <div id="app">
-      <h1>Hello App!</h1>
+      <nav class="container-fluid">
+        <ul>
+          <li><h2>liz</h2></li>
+        </ul>
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li role="list" dir="rtl">
+            <a href="#" aria-haspopup="listbox">Dropdown</a>
+            <ul role="listbox">
+              <li><a>Action</a></li>
+              <li><a>Another action</a></li>
+              <li><a>Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
       <p>
         <!-- use the router-link component for navigation. -->
         <!-- specify the link by passing the `to` prop. -->

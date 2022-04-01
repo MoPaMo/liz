@@ -1,6 +1,33 @@
 // 1. Define route components.
 // These can be imported from other files
-const Home = { template: '<div>Home</div>' }
+const Home = { template: `<div>   <!--jumbotron-->
+<article>
+  <hgroup>
+    <h1>liz</h1>
+    <h2>my place to write down everything code</h2>
+  </hgroup>
+  <!--end jumbotron-->
+</article>
+<input
+  type="search"
+  id="search"
+  name="search"
+  placeholder="Search"
+  style="font-size: larger"
+/>
+<div style="text-align: center">
+  <a href="/add" class="secondary">or add new</a>
+</div>
+<!--main-->
+<br><br>
+<hr>
+<br>
+<section>
+  <h3>Latest notes</h3>
+  <div class="row">
+    <article class="col-sm-6 col-md-4 col-lg-3 col-xl-2">hi</article>
+  </div>
+</section></div>` }
 const About = { template: '<div>About</div>' }
 
 // 2. Define some routes
