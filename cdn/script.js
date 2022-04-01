@@ -92,7 +92,7 @@ const New = {
         .then((response) => {
             this.loading = true;
           // redirect to new post
-          this.$router.push({ path: `/entries/${response.data.LastId}` });
+          this.$router.push({ path: `/entries/${response.data.id}` });
         })
         .catch((error) => {
           console.log(error);
