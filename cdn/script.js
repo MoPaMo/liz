@@ -113,7 +113,7 @@ const Entry = {
   // load data from server when component is loaded
     created() {
         axios
-            .get(`/api/entries/${this.id}`)
+            .get(`/api/entries/${route.params.id}`)
             .then((response) => {
                 this.entry = response.data.entries[0];
             })
