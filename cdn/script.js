@@ -109,7 +109,18 @@ const Entry = {
     <p>{{entry.notice}}</p>
     <p>{{entry.code}}</p>
 </div>`,
-  props: ["entry"],
+  props: ["id"],
+  // load data from server when component is loaded
+    created() {
+        axios
+            .get(`/api/entries/${this.id}`)
+            .then((response) => {
+                this.entry = response.data.entries[0];
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 };
 
 // 2. Define some routes
@@ -119,6 +130,7 @@ const routes = [
   { path: "/", component: Home },
   { path: "/about", component: About },
   { path: "/new", component: New },
+  { path: "/entries/:id", component: Entry }
 ];
 
 // 3. Create the router instance and pass the `routes` option
