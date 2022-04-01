@@ -20,8 +20,7 @@ db.run(
     topic TEXT NOT NULL,
     code TEXT NOT NULL,
     header TEXT NOT NULL,
-    notice TEXT NOT NULL,
-    pwd TEXT NOT NULL
+    notice TEXT NOT NULL
   );`
 );
 
